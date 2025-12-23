@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Tourism - Your Dream Vacation Awaits</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a0e27;
+            --secondary-dark: #1a1d3a;
+            --accent-gold: #ffd700;
+            --accent-blue: #00d4ff;
+            --text-light: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            margin: 0 1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-light);
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            outline: none;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--accent-gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Search Dropdown */
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--secondary-dark);
+            border: 1px solid var(--accent-blue);
+            border-radius: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            margin-top: 5px;
+        }
+
+        .search-dropdown.show {
+            display: block;
+        }
+
+        .search-dropdown-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .search-dropdown-item:hover {
+            background: rgba(0, 212, 255, 0.2);
+        }
+
+        /* Home Section */
+        #home {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .home-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600') center/cover;
+            filter: brightness(0.4);
+            animation: zoomIn 20s infinite alternate;
+        }
+
+        .home-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.8), rgba(26, 29, 58, 0.6));
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .home-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .home-content h1 {
+            font-size: 5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .home-content p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .marquee-container {
+            margin-top: 2rem;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        marquee {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gold);
+            margin: 1rem auto;
+        }
+
+        /* About Section */
+        .stat-card {
+            background: linear-gradient(135deg, var(--secondary-dark), rgba(0, 212, 255, 0.1));
+            border: 1px solid var(--accent-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin: 1rem 0;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        /* Packages Section */
+        .package-card {
+            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+            border: 1px solid var(--accent-gold);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .package-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(240, 240, 240, 0.3);
+        }
+
+        .package-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+
+        .package-card:hover .package-img {
+            transform: scale(1.1);
+        }
+
+        .package-body {
+            padding: 1.5rem;
+        }
+
+        .package-title {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .package-price {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .package-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .package-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .package-features li i {
+            color: var(--accent-gold);
+            margin-right: 0.5rem;
+        }
+
+        .btn-book {
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            color: var(--primary-dark);
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-book:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Booking Modal */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .booking-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .booking-form-container {
+            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-blue);
+        }
+
+        .form-label {
+            color: var(--accent-gold);
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-gold);
+            color: var(--text-light);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .form-section-title {
+            color: var(--accent-blue);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            color: var(--primary-dark);
+            font-weight: bold;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home-content h1 {
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .booking-form-container {
+                padding: 20px;
+            }
+        }
+        footer{
+            background-color:oklch(0.141 0.005 285.823);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#"><i class="fas fa-plane-departure"></i> AURORA</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#packages">Packages</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="search-container">
+                                <input type="text" class="form-control search-input" id="searchInput" placeholder="Search destination..." autocomplete="off">
+                                <button class="search-btn" onclick="performSearch()">
+                                    <i class="fas fa-search" style="color: white;"></i>
+                                </button>
+                                <div class="search-dropdown" id="searchDropdown"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="home-bg"></div>
+        <div class="home-content">
+            <h1>AURORA TOURISM</h1>
+            <p>Explore the World with Confidence</p>
+            <div class="marquee-container">
+                <marquee behavior="scroll" direction="left">
+                    🌍 Discover Amazing Destinations | 🏖️ Best Prices Guaranteed | ✈️ 15+ Years Experience | 🎉 50,000+ Happy Customers | 🌟 Trusted Travel Partner
+                </marquee>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Aurora Tourism</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stat-card" onclick="animateCard(this)">
+                        <div class="stat-icon"><i class="fas fa-wallet"></i></div>
+                        <div class="stat-number">Best Prices</div>
+                        <div class="stat-label">Lowest rates guaranteed with no hidden charges</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card" onclick="animateCard(this)">
+                        <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                        <div class="stat-number">50+ Countries</div>
+                        <div class="stat-label">With Aurora Tourism, the world is yours to explore.</div>
+                    </div>
+                </div>  
+                <div class="col-md-4">
+                    <div class="stat-card" onclick="animateCard(this)">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-label">Happy customers worldwide</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <div class="stat-card">
+                        <h3 style="color: var(--accent-gold);">Why Choose Aurora?</h3>
+                        <p class="mt-3">At Aurora Tourism, we believe travel is more than just visiting places—it's about creating memories that last a lifetime. With over 15 years of expertise, we've helped more than 50,000 travelers explore the world safely and affordably. Our commitment to competitive pricing means you get the best value without compromising on quality. Whether it's a family vacation, a romantic honeymoon, or a student adventure, we customize every trip to your needs. Trust Aurora Tourism to turn your travel dreams into reality!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages">
+        <div class="container">
+            <h2 class="section-title">Our Travel Packages</h2>
+            
+            <!-- Family Packages -->
+            <h3 class="text-center mb-4" style="color: var(--accent-blue);">Family Packages</h3>
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Paris Family Package', 50000, 'paris')">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800" class="package-img" alt="Paris">
+                        <div class="package-body">
+                            <h3 class="package-title">Paris Family Delight</h3>
+                            <div class="package-price">₹50,000 <small style="font-size: 1rem;">/family (4 members)</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 7 Days / 6 Nights</li>
+                                <li><i class="fas fa-check"></i> 4-star Hotel</li>
+                                <li><i class="fas fa-check"></i> Eiffel Tower & Disneyland</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Dubai Family Package', 40000, 'dubai')">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800" class="package-img" alt="Dubai">
+                        <div class="package-body">
+                            <h3 class="package-title">Dubai Family Adventure</h3>
+                            <div class="package-price">₹40,000 <small style="font-size: 1rem;">/family (4 members)</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
+                                <li><i class="fas fa-check"></i> 5-star Resort</li>
+                                <li><i class="fas fa-check"></i> Desert Safari & Burj Khalifa</li>
+                                <li><i class="fas fa-check"></i> All Meals Included</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Thailand Family Package', 35000, 'thailand')">
+                        <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800" class="package-img" alt="Thailand">
+                        <div class="package-body">
+                            <h3 class="package-title">Thailand Family Fun</h3>
+                            <div class="package-price">₹35,000 <small style="font-size: 1rem;">/family (4 members)</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
+                                <li><i class="fas fa-check"></i> Beach Resort</li>
+                                <li><i class="fas fa-check"></i> Island Hopping & Safari Park</li>
+                                <li><i class="fas fa-check"></i> All Meals Included</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Honeymoon Packages -->
+            <h3 class="text-center mb-4" style="color: var(--accent-gold);">Honeymoon Packages</h3>
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Maldives Honeymoon', 20000, 'maldives')">
+                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800" class="package-img" alt="Maldives">
+                        <div class="package-body">
+                            <h3 class="package-title">Maldives Romance</h3>
+                            <div class="package-price">₹20,000 <small style="font-size: 1rem;">/couple</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
+                                <li><i class="fas fa-check"></i> Overwater Villa</li>
+                                <li><i class="fas fa-check"></i> Candlelight Dinner</li>
+                                <li><i class="fas fa-check"></i> Spa & Water Sports</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Switzerland Honeymoon', 60000, 'switzerland')">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" class="package-img" alt="Switzerland">
+                        <div class="package-body">
+                            <h3 class="package-title">Swiss Paradise</h3>
+                            <div class="package-price">₹60,000 <small style="font-size: 1rem;">/couple</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 7 Days / 6 Nights</li>
+                                <li><i class="fas fa-check"></i> Luxury Chalet</li>
+                                <li><i class="fas fa-check"></i> Alps Tour & Lake Cruise</li>
+                                <li><i class="fas fa-check"></i> Romantic Dinners</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Bali Honeymoon', 56000, 'bali')">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800" class="package-img" alt="Bali">
+                        <div class="package-body">
+                            <h3 class="package-title">Bali Bliss</h3>
+                            <div class="package-price">₹56,000 <small style="font-size: 1rem;">/couple</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
+                                <li><i class="fas fa-check"></i> Private Pool Villa</li>
+                                <li><i class="fas fa-check"></i> Temple Tours & Beach</li>
+                                <li><i class="fas fa-check"></i> Couple Spa Treatment</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Packages -->
+            <h3 class="text-center mb-4" style="color: var(--accent-blue);">Student Packages</h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Singapore Student Trip', 35999, 'singapore')">
+                        <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800" class="package-img" alt="Singapore">
+                        <div class="package-body">
+                            <h3 class="package-title">Singapore Explorer</h3>
+                            <div class="package-price">₹35,999 <small style="font-size: 1rem;">/person</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 4 Days / 3 Nights</li>
+                                <li><i class="fas fa-check"></i> Budget Hostel</li>
+                                <li><i class="fas fa-check"></i> Universal Studios</li>
+                                <li><i class="fas fa-check"></i> City Tour & Gardens</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Malaysia Student Package', 29999, 'malaysia')">
+                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800" class="package-img" alt="Malaysia">
+                        <div class="package-body">
+                            <h3 class="package-title">Malaysia Adventure</h3>
+                            <div class="package-price">₹29,999 <small style="font-size: 1rem;">/person</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
+                                <li><i class="fas fa-check"></i> Shared Accommodation</li>
+                                <li><i class="fas fa-check"></i> Petronas Tower & Genting</li>
+                                <li><i class="fas fa-check"></i> Breakfast Included</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="package-card" onclick="selectPackage('Vietnam Student Tour', 32999, 'vietnam')">
+                        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800" class="package-img" alt="Vietnam">
+                        <div class="package-body">
+                            <h3 class="package-title">Vietnam Discovery</h3>
+                            <div class="package-price">₹32,999 <small style="font-size: 1rem;">/person</small></div>
+                            <ul class="package-features">
+                                <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
+                                <li><i class="fas fa-check"></i> Hostel Stay</li>
+                                <li><i class="fas fa-check"></i> Halong Bay & City Tour</li>
+                                <li><i class="fas fa-check"></i> Breakfast Included</li>
+                            </ul>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="lead text-white text-center py-3">
+    <div class="container">
+        <p>&copy; 2025 AURORA Tourism. All rights reserved.</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Privacy Policy</a></li>
+            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Terms of Service</a></li>
+            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">FAQs</a></li>
+            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Support</a></li>
+            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Careers</a></li>
+        </ul>
+    </div>
+</footer>
