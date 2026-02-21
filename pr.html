@@ -3,558 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurora Tourism - Your Dream Vacation Awaits</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-dark: #0a0e27;
-            --secondary-dark: #1a1d3a;
-            --accent-gold: #ffd700;
-            --accent-blue: #00d4ff;
-            --text-light: #e0e0e0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar {
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-        }
-
-        .nav-link {
-            color: var(--text-light) !important;
-            margin: 0 1rem;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-gold) !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .search-container {
-            position: relative;
-        }
-
-        .search-input {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--accent-blue);
-            color: var(--text-light);
-            padding: 0.5rem 2.5rem 0.5rem 1rem;
-            border-radius: 25px;
-            transition: all 0.3s;
-        }
-
-        .search-input:focus {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-            outline: none;
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--accent-blue);
-            border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .search-btn:hover {
-            background: var(--accent-gold);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        /* Search Dropdown */
-        .search-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--secondary-dark);
-            border: 1px solid var(--accent-blue);
-            border-radius: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-            margin-top: 5px;
-        }
-
-        .search-dropdown.show {
-            display: block;
-        }
-
-        .search-dropdown-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-        }
-
-        .search-dropdown-item:hover {
-            background: rgba(0, 212, 255, 0.2);
-        }
-
-        /* Home Section */
-        #home {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .home-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600') center/cover;
-            filter: brightness(0.4);
-            animation: zoomIn 20s infinite alternate;
-        }
-
-        .home-bg::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(10, 14, 39, 0.8), rgba(26, 29, 58, 0.6));
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
-
-        .home-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .home-content h1 {
-            font-size: 5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue), var(--accent-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
-            margin-bottom: 1rem;
-        }
-
-        .home-content p {
-            font-size: 1.5rem;
-            color: var(--text-light);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        .marquee-container {
-            margin-top: 2rem;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            border-radius: 10px;
-        }
-
-        marquee {
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-        }
-
-        /* Section Styles */
-        section {
-            padding: 5rem 0;
-            min-height: 100vh;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: var(--accent-gold);
-            margin: 1rem auto;
-        }
-
-        /* About Section */
-        .stat-card {
-            background: linear-gradient(135deg, var(--secondary-dark), rgba(0, 212, 255, 0.1));
-            border: 1px solid var(--accent-blue);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-            height: 100%;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-        }
-
-        .stat-icon {
-            font-size: 3rem;
-            color: var(--accent-gold);
-            margin-bottom: 1rem;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--accent-blue);
-            margin: 1rem 0;
-        }
-
-        .stat-label {
-            font-size: 1.2rem;
-            color: var(--text-light);
-        }
-
-        /* Packages Section */
-        .package-card {
-            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
-            border: 1px solid var(--accent-gold);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
-            height: 100%;
-        }
-
-        .package-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(240, 240, 240, 0.3);
-        }
-
-        .package-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: all 0.3s;
-        }
-
-        .package-card:hover .package-img {
-            transform: scale(1.1);
-        }
-
-        .package-body {
-            padding: 1.5rem;
-        }
-
-        .package-title {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 1rem;
-        }
-
-        .package-price {
-            font-size: 2rem;
-            color: var(--accent-blue);
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .package-features {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .package-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .package-features li i {
-            color: var(--accent-gold);
-            margin-right: 0.5rem;
-        }
-
-        .btn-book {
-            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            color: var(--primary-dark);
-            font-weight: bold;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .btn-book:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
-        }
-
-        /* Booking Modal */
-        .booking-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .booking-modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .booking-form-container {
-            background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
-            border: 2px solid var(--accent-gold);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            color: var(--accent-gold);
-            cursor: pointer;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-
-        .close-modal:hover {
-            color: var(--accent-blue);
-        }
-
-        .form-label {
-            color: var(--accent-gold);
-            font-weight: 500;
-            margin-top: 10px;
-        }
-
-        .form-control, .form-select {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--accent-blue);
-            color: var(--text-light);
-            margin-bottom: 15px;
-        }
-
-        .form-control:focus, .form-select:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--accent-gold);
-            color: var(--text-light);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .form-section-title {
-            color: var(--accent-blue);
-            margin-top: 25px;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .btn-submit {
-            background: linear-gradient(45deg, var(--accent-gold), var(--accent-blue));
-            border: none;
-            padding: 12px 40px;
-            border-radius: 25px;
-            color: var(--primary-dark);
-            font-weight: bold;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .home-content h1 {
-                font-size: 3rem;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
-            .booking-form-container {
-                padding: 20px;
-            }
-        }
-        footer{
-            background-color:oklch(0.141 0.005 285.823);
-        }
-    </style>
+    <title>AURORA TOURISM</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="#"><i class="fas fa-plane-departure"></i> AURORA</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#packages">Packages</a>
-                        </li>
-                        <li class="nav-item">
-                            <div class="search-container">
-                                <input type="text" class="form-control search-input" id="searchInput" placeholder="Search destination..." autocomplete="off">
-                                <button class="search-btn" onclick="performSearch()">
-                                    <i class="fas fa-search" style="color: white;"></i>
-                                </button>
-                                <div class="search-dropdown" id="searchDropdown"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+        <nav>
+            <div class="logo">AURORA</div>
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#packages" class="nav-link">Packages</a></li>
+                <li><a href="#bookings" class="nav-link">My Bookings</a></li>
+            </ul>
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search destinations...">
+                <button class="search-btn" onclick="performSearch()">🔍</button>
+                <div id="searchDropdown" class="search-dropdown"></div>
             </div>
         </nav>
     </header>
 
-    <!-- Home Section -->
+    <!-- Hero Section -->
     <section id="home">
         <div class="home-bg"></div>
         <div class="home-content">
             <h1>AURORA TOURISM</h1>
             <p>Explore the World with Confidence</p>
             <div class="marquee-container">
-                <marquee behavior="scroll" direction="left">
-                    🌍 Discover Amazing Destinations | 🏖️ Best Prices Guaranteed | ✈️ 15+ Years Experience | 🎉 50,000+ Happy Customers | 🌟 Trusted Travel Partner
-                </marquee>
+                <div class="marquee-text">Discover Amazing Destinations | Best Prices Guaranteed | 4+ Years Experience | 5,000+ Happy Customers | Trusted Travel Partner</div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
+        <h2 class="section-title">About Aurora Tourism</h2>
         <div class="container">
-            <h2 class="section-title">About Aurora Tourism</h2>
-            <div class="row g-4">
+            <div class="row">
                 <div class="col-md-4">
-                    <div class="stat-card" onclick="animateCard(this)">
-                        <div class="stat-icon"><i class="fas fa-wallet"></i></div>
-                        <div class="stat-number">Best Prices</div>
-                        <div class="stat-label">Lowest rates guaranteed with no hidden charges</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card" onclick="animateCard(this)">
-                        <div class="stat-icon"><i class="fas fa-globe"></i></div>
-                        <div class="stat-number">50+ Countries</div>
-                        <div class="stat-label">With Aurora Tourism, the world is yours to explore.</div>
-                    </div>
-                </div>  
-                <div class="col-md-4">
-                    <div class="stat-card" onclick="animateCard(this)">
-                        <div class="stat-icon"><i class="fas fa-users"></i></div>
-                        <div class="stat-number">50,000+</div>
-                        <div class="stat-label">Happy customers worldwide</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-md-12">
                     <div class="stat-card">
-                        <h3 style="color: var(--accent-gold);">Why Choose Aurora?</h3>
-                        <p class="mt-3">At Aurora Tourism, we believe travel is more than just visiting places—it's about creating memories that last a lifetime. With over 15 years of expertise, we've helped more than 50,000 travelers explore the world safely and affordably. Our commitment to competitive pricing means you get the best value without compromising on quality. Whether it's a family vacation, a romantic honeymoon, or a student adventure, we customize every trip to your needs. Trust Aurora Tourism to turn your travel dreams into reality!</p>
+                        <div class="stat-icon">
+                            <img src="https://img.icons8.com/fluency/96/price-tag.png" alt="Best Prices">
+                        </div>
+                        <h3 class="stat-label">Best Prices</h3>
+                        <p>Who says world travel has to be expensive? Aurora Tourism brings you affordable trips to 70+ Countries. Pack your bags fun is just a ticket away.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <img src="https://img.icons8.com/fluency/96/geography.png" alt="Countries">
+                        </div>
+                        <h3 class="stat-number">70+</h3>
+                        <p class="stat-label">Countries</p>
+                        <p>With Aurora Tourism, the world is yours to explore. Discover iconic landmarks, diverse cultures, and unforgettable adventures in over 70+ country.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <img src="https://img.icons8.com/fluency/96/star--v1.png" alt="Happy Customers">
+                        </div>
+                        <h3 class="stat-number">5,000+</h3>
+                        <p class="stat-label">Happy Travelers</p>
+                        <p>Loved by 5,000+ travelers, Aurora Tourism is all about unforgettable vibes and epic journeys.</p>
                     </div>
                 </div>
             </div>
@@ -563,177 +78,879 @@
 
     <!-- Packages Section -->
     <section id="packages">
+        <h2 class="section-title">Our Travel Packages</h2>
+
+        <!-- Family Packages -->
         <div class="container">
-            <h2 class="section-title">Our Travel Packages</h2>
-            
-            <!-- Family Packages -->
-            <h3 class="text-center mb-4" style="color: var(--accent-blue);">Family Packages</h3>
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Paris Family Package', 50000, 'paris')">
-                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800" class="package-img" alt="Paris">
+            <h3 class="package-category-title">Family Packages</h3>
+            <div class="package-scroll-container">
+                <div class="package-grid-scroll">
+                    <div class="package-card">
+                        <img src="fam-france.jpg" alt="France" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Paris Family Delight</h3>
-                            <div class="package-price">₹50,000 <small style="font-size: 1rem;">/family (4 members)</small></div>
+                            <h4 class="package-title">France</h4>
+                            <div class="package-price">₹89,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 7 Days / 6 Nights</li>
-                                <li><i class="fas fa-check"></i> 4-star Hotel</li>
-                                <li><i class="fas fa-check"></i> Eiffel Tower & Disneyland</li>
+                                <li>7 Days / 6 Nights</li>
+                                <li>Family of 4</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('France', '89000', 'Family')">Book Now</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Dubai Family Package', 40000, 'dubai')">
-                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800" class="package-img" alt="Dubai">
+
+                    <div class="package-card">
+                        <img src="fam-new york.webp" alt="New York" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Dubai Family Adventure</h3>
-                            <div class="package-price">₹40,000 <small style="font-size: 1rem;">/family (4 members)</small></div>
+                            <h4 class="package-title">New York</h4>
+                            <div class="package-price">₹1,00,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
-                                <li><i class="fas fa-check"></i> 5-star Resort</li>
-                                <li><i class="fas fa-check"></i> Desert Safari & Burj Khalifa</li>
-                                <li><i class="fas fa-check"></i> All Meals Included</li>
+                                <li>8 Days / 7 Nights</li>
+                                <li>Family of 4</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('New York', '100000', 'Family')">Book Now</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Thailand Family Package', 35000, 'thailand')">
-                        <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800" class="package-img" alt="Thailand">
+
+                    <div class="package-card">
+                        <img src="fam-thailand.jpg" alt="Thailand" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Thailand Family Fun</h3>
-                            <div class="package-price">₹35,000 <small style="font-size: 1rem;">/family (4 members)</small></div>
+                            <h4 class="package-title">Thailand</h4>
+                            <div class="package-price">₹55,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
-                                <li><i class="fas fa-check"></i> Beach Resort</li>
-                                <li><i class="fas fa-check"></i> Island Hopping & Safari Park</li>
-                                <li><i class="fas fa-check"></i> All Meals Included</li>
+                                <li>6 Days / 5 Nights</li>
+                                <li>Family of 4</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Thailand', '55000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="fam-dubai.jpg" alt="Dubai" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Dubai</h4>
+                            <div class="package-price">₹75,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Dubai', '75000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="fam-singapore.jpg" alt="Singapore" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Singapore</h4>
+                            <div class="package-price">₹68,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Singapore', '68000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="fam-italy.jpg" alt="Italy" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Italy</h4>
+                            <div class="package-price">₹95,000</div>
+                            <ul class="package-features">
+                                <li>8 Days / 7 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Italy', '95000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="fam-australia.jpg" alt="Australia" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Australia</h4>
+                            <div class="package-price">₹1,25,000</div>
+                            <ul class="package-features">
+                                <li>10 Days / 9 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Australia', '125000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="fam-japan.jpg" alt="Japan" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Japan</h4>
+                            <div class="package-price">₹1,10,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Japan', '110000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="fam-spain.webp" alt="Spain" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Spain</h4>
+                            <div class="package-price">₹92,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Spain', '92000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400" alt="Turkey" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Turkey</h4>
+                            <div class="package-price">₹72,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Turkey', '72000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1484318571209-661cf29a69c3?w=400" alt="South Africa" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">South Africa</h4>
+                            <div class="package-price">₹1,05,000</div>
+                            <ul class="package-features">
+                                <li>8 Days / 7 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('South Africa', '105000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=400" alt="Canada" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Canada</h4>
+                            <div class="package-price">₹1,15,000</div>
+                            <ul class="package-features">
+                                <li>9 Days / 8 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Canada', '115000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400" alt="Egypt" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Egypt</h4>
+                            <div class="package-price">₹82,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Egypt', '82000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400" alt="Portugal" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Portugal</h4>
+                            <div class="package-price">₹85,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Portugal', '85000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=400" alt="Morocco" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Morocco</h4>
+                            <div class="package-price">₹78,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Morocco', '78000', 'Family')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400" alt="Germany" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Germany</h4>
+                            <div class="package-price">₹88,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Family of 4</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Germany', '88000', 'Family')">Book Now</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Honeymoon Packages -->
-            <h3 class="text-center mb-4" style="color: var(--accent-gold);">Honeymoon Packages</h3>
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Maldives Honeymoon', 20000, 'maldives')">
-                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800" class="package-img" alt="Maldives">
+        <!-- Honeymoon Packages -->
+        <div class="container" style="margin-top: 4rem;">
+            <h3 class="package-category-title">Honeymoon Packages</h3>
+            <div class="package-scroll-container">
+                <div class="package-grid-scroll">
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400" alt="Maldives" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Maldives Romance</h3>
-                            <div class="package-price">₹20,000 <small style="font-size: 1rem;">/couple</small></div>
+                            <h4 class="package-title">Maldives</h4>
+                            <div class="package-price">₹95,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
-                                <li><i class="fas fa-check"></i> Overwater Villa</li>
-                                <li><i class="fas fa-check"></i> Candlelight Dinner</li>
-                                <li><i class="fas fa-check"></i> Spa & Water Sports</li>
+                                <li>5 Days / 4 Nights</li>
+                                <li>Couple Package</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Maldives', '95000', 'Honeymoon')">Book Now</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Switzerland Honeymoon', 60000, 'switzerland')">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" class="package-img" alt="Switzerland">
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=400" alt="Switzerland" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Swiss Paradise</h3>
-                            <div class="package-price">₹60,000 <small style="font-size: 1rem;">/couple</small></div>
+                            <h4 class="package-title">Switzerland</h4>
+                            <div class="package-price">₹1,20,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 7 Days / 6 Nights</li>
-                                <li><i class="fas fa-check"></i> Luxury Chalet</li>
-                                <li><i class="fas fa-check"></i> Alps Tour & Lake Cruise</li>
-                                <li><i class="fas fa-check"></i> Romantic Dinners</li>
+                                <li>7 Days / 6 Nights</li>
+                                <li>Couple Package</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Switzerland', '120000', 'Honeymoon')">Book Now</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Bali Honeymoon', 56000, 'bali')">
-                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800" class="package-img" alt="Bali">
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400" alt="Bali" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Bali Bliss</h3>
-                            <div class="package-price">₹56,000 <small style="font-size: 1rem;">/couple</small></div>
+                            <h4 class="package-title">Bali</h4>
+                            <div class="package-price">₹78,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
-                                <li><i class="fas fa-check"></i> Private Pool Villa</li>
-                                <li><i class="fas fa-check"></i> Temple Tours & Beach</li>
-                                <li><i class="fas fa-check"></i> Couple Spa Treatment</li>
+                                <li>6 Days / 5 Nights</li>
+                                <li>Couple Package</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Bali', '78000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1503152394-c571994fd383?w=400" alt="Greece" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Greece</h4>
+                            <div class="package-price">₹1,15,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Greece', '115000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=400" alt="Paris" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Paris</h4>
+                            <div class="package-price">₹1,05,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Paris', '105000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400" alt="Seychelles" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Seychelles</h4>
+                            <div class="package-price">₹1,10,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Seychelles', '110000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=400" alt="Mauritius" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Mauritius</h4>
+                            <div class="package-price">₹88,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Mauritius', '88000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400" alt="Santorini" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Santorini</h4>
+                            <div class="package-price">₹1,25,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Santorini', '125000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=400" alt="Venice" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Venice</h4>
+                            <div class="package-price">₹98,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Venice', '98000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400" alt="Fiji" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Fiji</h4>
+                            <div class="package-price">₹1,30,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Fiji', '130000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=400" alt="Prague" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Prague</h4>
+                            <div class="package-price">₹92,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Prague', '92000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1589197331516-4d84b6a16d19?w=400" alt="Bora Bora" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Bora Bora</h4>
+                            <div class="package-price">₹1,50,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Bora Bora', '150000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=400" alt="Iceland" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Iceland</h4>
+                            <div class="package-price">₹1,35,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Iceland', '135000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400" alt="New Zealand" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">New Zealand</h4>
+                            <div class="package-price">₹1,40,000</div>
+                            <ul class="package-features">
+                                <li>8 Days / 7 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('New Zealand', '140000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1534113414509-0bd4d66c8aeb?w=400" alt="Amalfi Coast" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Amalfi Coast</h4>
+                            <div class="package-price">₹1,08,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Amalfi Coast', '108000', 'Honeymoon')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Norway" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Norway</h4>
+                            <div class="package-price">₹1,18,000</div>
+                            <ul class="package-features">
+                                <li>7 Days / 6 Nights</li>
+                                <li>Couple Package</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Norway', '118000', 'Honeymoon')">Book Now</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Student Packages -->
-            <h3 class="text-center mb-4" style="color: var(--accent-blue);">Student Packages</h3>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Singapore Student Trip', 35999, 'singapore')">
-                        <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800" class="package-img" alt="Singapore">
+        <!-- Student Packages -->
+        <div class="container" style="margin-top: 4rem;">
+            <h3 class="package-category-title">Student Packages</h3>
+            <div class="package-scroll-container">
+                <div class="package-grid-scroll">
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1571326371697-e7a55f952d30?w=400" alt="Malaysia" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Singapore Explorer</h3>
-                            <div class="package-price">₹35,999 <small style="font-size: 1rem;">/person</small></div>
+                            <h4 class="package-title">Malaysia</h4>
+                            <div class="package-price">₹35,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 4 Days / 3 Nights</li>
-                                <li><i class="fas fa-check"></i> Budget Hostel</li>
-                                <li><i class="fas fa-check"></i> Universal Studios</li>
-                                <li><i class="fas fa-check"></i> City Tour & Gardens</li>
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Malaysia', '35000', 'Student')">Book Now</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Malaysia Student Package', 29999, 'malaysia')">
-                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800" class="package-img" alt="Malaysia">
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=400" alt="Vietnam" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Malaysia Adventure</h3>
-                            <div class="package-price">₹29,999 <small style="font-size: 1rem;">/person</small></div>
+                            <h4 class="package-title">Vietnam</h4>
+                            <div class="package-price">₹38,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 5 Days / 4 Nights</li>
-                                <li><i class="fas fa-check"></i> Shared Accommodation</li>
-                                <li><i class="fas fa-check"></i> Petronas Tower & Genting</li>
-                                <li><i class="fas fa-check"></i> Breakfast Included</li>
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Vietnam', '38000', 'Student')">Book Now</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="package-card" onclick="selectPackage('Vietnam Student Tour', 32999, 'vietnam')">
-                        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800" class="package-img" alt="Vietnam">
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1528045876546-32dc3c5e5e01?w=400" alt="Cambodia" class="package-img">
                         <div class="package-body">
-                            <h3 class="package-title">Vietnam Discovery</h3>
-                            <div class="package-price">₹32,999 <small style="font-size: 1rem;">/person</small></div>
+                            <h4 class="package-title">Cambodia</h4>
+                            <div class="package-price">₹32,000</div>
                             <ul class="package-features">
-                                <li><i class="fas fa-check"></i> 6 Days / 5 Nights</li>
-                                <li><i class="fas fa-check"></i> Hostel Stay</li>
-                                <li><i class="fas fa-check"></i> Halong Bay & City Tour</li>
-                                <li><i class="fas fa-check"></i> Breakfast Included</li>
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
                             </ul>
-                            <button class="btn-book">Book Now</button>
+                            <button class="btn-book" onclick="openBookingModal('Cambodia', '32000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Sri Lanka" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Sri Lanka</h4>
+                            <div class="package-price">₹30,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Sri Lanka', '30000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=400" alt="Indonesia" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Indonesia</h4>
+                            <div class="package-price">₹36,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Indonesia', '36000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=400" alt="Nepal" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Nepal</h4>
+                            <div class="package-price">₹28,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Nepal', '28000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1565299928388-67b3b5c7a7ee?w=400" alt="Philippines" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Philippines</h4>
+                            <div class="package-price">₹40,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Philippines', '40000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1540611025311-01df3cef54b5?w=400" alt="Laos" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Laos</h4>
+                            <div class="package-price">₹34,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Laos', '34000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400" alt="Myanmar" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Myanmar</h4>
+                            <div class="package-price">₹33,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Myanmar', '33000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1563898892–4bbb-425c-a24d-4aef8e94f2fb?w=400" alt="Bhutan" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Bhutan</h4>
+                            <div class="package-price">₹42,000</div>
+                            <ul class="package-features">
+                                <li>5 Days / 4 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Bhutan', '42000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1547448415-e9f5b28e570d?w=400" alt="Georgia" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Georgia</h4>
+                            <div class="package-price">₹45,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Georgia', '45000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1568671703648-cb04f5843d43?w=400" alt="Armenia" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Armenia</h4>
+                            <div class="package-price">₹43,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Armenia', '43000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400" alt="Jordan" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Jordan</h4>
+                            <div class="package-price">₹48,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Jordan', '48000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1529942484319-8c3dc8b4856b?w=400" alt="Poland" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Poland</h4>
+                            <div class="package-price">₹46,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Poland', '46000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1541849546-216549ae216d?w=400" alt="Czech Republic" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Czech Republic</h4>
+                            <div class="package-price">₹47,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Czech Republic', '47000', 'Student')">Book Now</button>
+                        </div>
+                    </div>
+
+                    <div class="package-card">
+                        <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?w=400" alt="Hungary" class="package-img">
+                        <div class="package-body">
+                            <h4 class="package-title">Hungary</h4>
+                            <div class="package-price">₹44,000</div>
+                            <ul class="package-features">
+                                <li>6 Days / 5 Nights</li>
+                                <li>Per Person</li>
+                            </ul>
+                            <button class="btn-book" onclick="openBookingModal('Hungary', '44000', 'Student')">Book Now</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <footer class="lead text-white text-center py-3">
-    <div class="container">
-        <p>&copy; 2025 AURORA Tourism. All rights reserved.</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Privacy Policy</a></li>
-            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Terms of Service</a></li>
-            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">FAQs</a></li>
-            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Support</a></li>
-            <li class="list-inline-item"><a class="text-white text-decoration-none" href="#">Careers</a></li>
-        </ul>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="booking-form-container">
+            <button class="close-modal" onclick="closeBookingModal()">&times;</button>
+            <h2 style="color: var(--accent-gold); text-align: center; margin-bottom: 20px;">Book Your Dream Vacation</h2>
+            
+            <div class="total-price-display">
+                <strong>Package:</strong> <span id="modalPackage"></span><br>
+                <strong>Total Price:</strong> ₹<span id="modalPrice">0</span>
+            </div>
+
+            <form id="bookingForm">
+                <h3 class="form-section-title">Personal Information</h3>
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone Number *</label>
+                    <input type="tel" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Number of Travelers *</label>
+                    <input type="number" class="form-control" min="1" required>
+                </div>
+
+                <h3 class="form-section-title">Travel Details</h3>
+                <div class="form-group">
+                    <label class="form-label">Travel Date *</label>
+                    <input type="date" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Package Type *</label>
+                    <select id="packageType" class="form-select" required>
+                        <option value="">Select Type</option>
+                        <option value="Family">Family</option>
+                        <option value="Honeymoon">Honeymoon</option>
+                        <option value="Student">Student</option>
+                    </select>
+                </div>
+
+                <h3 class="form-section-title">Special Requirements</h3>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Any special requests or requirements..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Confirm Booking</button>
+            </form>
+
+            <div class="loading" id="loadingMessage">
+                Processing your booking...
+            </div>
+        </div>
     </div>
-</footer>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; AURORA TOURISM. All rights reserved.</p>
+            <div>
+                <a href="#privacy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // All destinations for search
+        const allDestinations = [
+            // Family Packages
+            'France', 'New York', 'Thailand', 'Dubai', 'Singapore', 'Italy', 'Australia', 
+            'Japan', 'Spain', 'Turkey', 'South Africa', 'Canada', 'Egypt', 'Portugal', 
+            'Morocco', 'Germany',
+            // Honeymoon Packages
+            'Maldives', 'Switzerland', 'Bali', 'Greece', 'Paris', 'Seychelles', 'Mauritius',
+            'Santorini', 'Venice', 'Fiji', 'Prague', 'Bora Bora', 'Iceland', 'New Zealand',
+            'Amalfi Coast', 'Norway',
+            // Student Packages
+            'Malaysia', 'Vietnam', 'Cambodia', 'Sri Lanka', 'Indonesia', 'Nepal', 'Philippines',
+            'Laos', 'Myanmar', 'Bhutan', 'Georgia', 'Armenia', 'Jordan', 'Poland', 
+            'Czech Republic', 'Hungary'
+        ];
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchDropdown = document.getElementById('searchDropdown');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (searchTerm.length === 0) {
+                searchDropdown.classList.remove('show');
+                return;
+            }
+
+            const filteredDestinations = allDestinations.filter(dest => 
+                dest.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredDestinations.length > 0) {
+                searchDropdown.innerHTML = filteredDestinations.map(dest => 
+                    `<div class="search-dropdown-item" onclick="scrollToDestination('${dest}')">
+                        <i>📍</i> ${dest}
+                    </div>`
+                ).join('');
+                searchDropdown.classList.add('show');
+            } else {
+                searchDropdown.innerHTML = '<div class="search-dropdown-item">No destinations found</div>';
+                searchDropdown.classList.add('show');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.search-container')) {
+                searchDropdown.classList.remove('show');
+            }
+        });
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm) {
+                scrollToDestination(searchTerm);
+            }
+        }
+
+        function scrollToDestination(destination) {
+            // Scroll to packages section first
+            document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight the destination card
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.package-card');
+                cards.forEach(card => {
+                    const title = card.querySelector('.package-title').textContent;
+                    if (title.toLowerCase().includes(destination.toLowerCase())) {
+                        card.style.border = '3px solid var(--accent-gold)';
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Remove highlight after 3 seconds
+                        setTimeout(() => {
+                            card.style.border = '1px solid var(--accent-gold)';
+                        }, 3000);
+                    }
+                });
+            }, 500);
+
+            searchDropdown.classList.remove('show');
+            searchInput.value = '';
+        }
+
+        // Existing booking modal functions
+        function openBookingModal(destination, price, type) {
+            document.getElementById('modalPackage').textContent = destination;
+            document.getElementById('modalPrice').textContent = price;
+            document.getElementById('packageType').value = type;
+            document.getElementById('bookingModal').classList.add('show');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('show');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target == modal) {
+                closeBookingModal();
+            }
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            setTimeout(function() {
+                document.getElementById('loadingMessage').style.display = 'none';
+                alert('Booking confirmed! We will contact you shortly.');
+                closeBookingModal();
+                document.getElementById('bookingForm').reset();
+            }, 2000);
+        });
+
+        // Horizontal scroll functionality for package cards
+        document.querySelectorAll('.package-scroll-container').forEach(container => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                container.classList.add('active');
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isDown = false;
+                container.classList.remove('active');
+            });
+
+            container.addEventListener('mouseup', () => {
+                isDown = false;
+                container.classList.remove('active');
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+</body>
+</html>
